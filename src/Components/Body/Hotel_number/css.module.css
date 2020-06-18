@@ -1,0 +1,8 @@
+.Hotel_Number{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 750px;
+    border: 1px solid green;
+
+}

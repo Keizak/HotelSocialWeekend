@@ -1,0 +1,7 @@
+
+.Body{
+    display:flex;
+    text-align: center;
+    border:1px solid black;
+    height: 750px;
+}
