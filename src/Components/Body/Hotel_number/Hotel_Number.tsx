@@ -1,8 +1,8 @@
 import React from 'react';
 import style from './css.module.css';
 import Entertainment from "./Entertainment/Entertainment";
-import Dialogs from "./Dialogs/Dialogs";
 import Hotel_status from "../../Hotel_Status/Hotel_status";
+import Dialogs from "./Dialogs_rolled/Dialogs";
 
 type Hotel_NumberType= {
 

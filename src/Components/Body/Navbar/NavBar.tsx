@@ -8,7 +8,7 @@ type NavBarType = {}
 function NavBar(props: NavBarType) {
     return (
         <div className={style.NavBar}>
-            <div className={style.NavBar_item}><NavLink to={"/Hotel_Number"} activeClassName={style.Active}>Моя комната</NavLink></div>
+            <div className={style.NavBar_item}><NavLink to={"/Hotel_Number/Dialogs"} activeClassName={style.Active}>Моя комната</NavLink></div>
             <div className={style.NavBar_item}><NavLink to={"/Restaurant"} activeClassName={style.Active}>Ресторан</NavLink></div>
             <div className={style.NavBar_item}><NavLink to={"/Beach"} activeClassName={style.Active}>Пляж</NavLink></div>
             <div className={style.NavBar_item}><NavLink to={"/Theater"} activeClassName={style.Active}>Театр</NavLink></div>

@@ -1,5 +1,7 @@
 .Entertainment{
     display: flex;
+    align-items:center;
+    justify-content: space-evenly;
     width: 100%;
     height: 450px;
     border: 1px solid green;
