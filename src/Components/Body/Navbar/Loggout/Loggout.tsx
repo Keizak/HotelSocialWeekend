@@ -6,7 +6,7 @@ type LoggoutType = {
  }
 
 
-function Loggout(props:LoggoutType) {
+function Logout(props:LoggoutType) {
   return (
       <div className={style.main}>
           Выход
@@ -15,4 +15,4 @@ function Loggout(props:LoggoutType) {
 )
 
 }
-export default Loggout;
+export default Logout;

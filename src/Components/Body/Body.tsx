@@ -1,44 +1,47 @@
 import React from 'react';
 import style from './css.module.css';
 import NavBar from "./Navbar/NavBar";
-import Hotel_Number from "./Hotel_number/Hotel_Number";
 import FriendsBar from "./FriendsBar/FriendsBar";
 import {Route} from "react-router-dom";
-import Restaurant from "./Navbar/Restaurant/Restaurant";
-import Beach from "./Navbar/Beach/Beach";
-import Clubs from "./Navbar/Clubs/Clubs";
 import Settings from "./Navbar/Settings/Settings";
-import Loggout from "./Navbar/Loggout/Loggout";
-import Theater from "./Navbar/Theater/Theater";
-import Dialogs_Full from "./Hotel_number/Dialogs_full/Dialogs_full"
-import Blog from "./Hotel_number/Entertainment/Blog/Blog"
-import Music from "./Hotel_number/Entertainment/Music/Music";
-import Video from "./Hotel_number/Entertainment/Video/Video";
-import Photo from "./Hotel_number/Entertainment/Photo/Photo";
+import {stateType} from "../../Redux/State";
+import Logout from "./Navbar/Loggout/Loggout";
+import Music from "./Music/Music";
+import Video from "./Video/Video";
+import Photo from "./Photo/Photo";
+import MyPage from "./MyPage/MyPage";
+import Dialogs from "./Dialogs/Dialogs";
 
 type BodyType= {
-
+    state:stateType
+    AddPost:() => void
+    ChangeNewPostText:(newPostText:string) => void
  }
 
 
 function Body(props:BodyType) {
-  return (
+  // @ts-ignore
+    return (
           <div className={style.Body} >
               <NavBar />
-              <Route exact path='/' component={Hotel_Number}/>
-              <Route path='/Restaurant' component={Restaurant}/>
-              <Route path='/Hotel_Number/Dialogs' component={Hotel_Number}/>
-              <Route path='/Beach' component={Beach}/>
-              <Route path='/Clubs' component={Clubs}/>
+              <Route exact path='/' render={() => <MyPage BlogPage={props.state.MyPage.BlogPage}
+                                                          AddPost={props.AddPost}
+                                                          inputtext={props.state.MyPage.inputtext}
+                                                          ChangeNewPostText={props.ChangeNewPostText}/> }/>
+              <Route exact path='/Hotel_Number/' render={() => <MyPage BlogPage={props.state.MyPage.BlogPage}
+                                                                       AddPost={props.AddPost}
+                                                                       inputtext={props.state.MyPage.inputtext}
+                                                                       ChangeNewPostText={props.ChangeNewPostText}/>}/>
+              <Route path='/Dialogs/' render={() => <Dialogs
+                  Friends_messagesData={props.state.DialogsPage.Friends_messagesData}
+                  MessageData={props.state.DialogsPage.MessageData}
+                  />}/>
               <Route path='/Settings' component={Settings}/>
-              <Route path='/Loggout' component={Loggout}/>
-              <Route path='/Theater' component={Theater}/>
-              <Route path='/Dialogs_full/' component={Dialogs_Full}/>
-              <Route  exact path='/HotelNumber/Blog' component={Blog}/>
-              <Route  exact path='/HotelNumber/Photo' component={Photo}/>
-              <Route  exact path='/HotelNumber/Music' component={Music}/>
-              <Route  exact path='/HotelNumber/Video' component={Video}/>
-              <FriendsBar />
+              <Route path='/Logout' component={Logout}/>
+              <Route  exact path='/Photo' component={Photo}/>
+              <Route  exact path='/Music' component={Music}/>
+              <Route  exact path='/Video' component={Video}/>
+              <FriendsBar FriendsBarData={props.state.FriendsBarPage}/>
 
 
           </div>
