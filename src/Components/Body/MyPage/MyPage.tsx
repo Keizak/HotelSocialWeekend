@@ -1,12 +1,15 @@
 import React from 'react';
 import style from './css.module.css';
-import Posts, {PostsType} from "./Posts/Blog";
+import Posts from "./Posts/Blog";
+import {
+    ActionType,
+    StoreType,
+} from "../../../Redux/Store";
+import {AddPostActionCreator, UpdatePostActionCreator} from "../../../Redux/MyPage-Reducer";
 
 export type  MyPageType = {
-    BlogPage: PostsType
-    inputtext:string
-    AddPost:() => void
-    ChangeNewPostText:(newPostText:string) => void
+    store: StoreType
+    dispatch:(action: ActionType)=> void
 }
 
 
@@ -15,12 +18,15 @@ function  MyPage(props:  MyPageType) {
     let newpostElement:any = React.createRef();
 
     function SentPost() {
-        props.AddPost()
+        let newPostText = newpostElement.current.value
+        let action = AddPostActionCreator(newPostText)
+        props.dispatch(action)
     }
 
     function ChangePost() {
-        let newposttext = newpostElement.current.value
-        props.ChangeNewPostText(newposttext)
+        let newPostText = newpostElement.current.value
+        let action = UpdatePostActionCreator(newPostText)
+        props.dispatch(action)
     }
     return (
 
@@ -32,16 +38,16 @@ function  MyPage(props:  MyPageType) {
                 </div>
                 <div className={style.edit_window}>
                     <input ref={newpostElement}
-                           value={props.inputtext}
+                           value={props.store._state.MyPage.EditPostText}
                            onChange={ChangePost}
                     />
-                    <button onClick={props.AddPost}>Add Post</button>
+                    <button onClick={SentPost}>Add Post</button>
                 </div>
             </div>
 
 
             <div className={style.wall}>
-                <Posts posts={props.BlogPage.posts}/>
+                <Posts posts={props.store._state.MyPage.BlogPage.posts}/>
             </div>
         </div>
 

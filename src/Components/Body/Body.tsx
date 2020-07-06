@@ -4,7 +4,7 @@ import NavBar from "./Navbar/NavBar";
 import FriendsBar from "./FriendsBar/FriendsBar";
 import {Route} from "react-router-dom";
 import Settings from "./Navbar/Settings/Settings";
-import {stateType} from "../../Redux/State";
+import {ActionType, StoreType} from "../../Redux/Store";
 import Logout from "./Navbar/Loggout/Loggout";
 import Music from "./Music/Music";
 import Video from "./Video/Video";
@@ -13,35 +13,24 @@ import MyPage from "./MyPage/MyPage";
 import Dialogs from "./Dialogs/Dialogs";
 
 type BodyType= {
-    state:stateType
-    AddPost:() => void
-    ChangeNewPostText:(newPostText:string) => void
- }
+    store: StoreType
+    dispatch:(action: ActionType)=> void
+}
 
 
 function Body(props:BodyType) {
-  // @ts-ignore
     return (
           <div className={style.Body} >
               <NavBar />
-              <Route exact path='/' render={() => <MyPage BlogPage={props.state.MyPage.BlogPage}
-                                                          AddPost={props.AddPost}
-                                                          inputtext={props.state.MyPage.inputtext}
-                                                          ChangeNewPostText={props.ChangeNewPostText}/> }/>
-              <Route exact path='/Hotel_Number/' render={() => <MyPage BlogPage={props.state.MyPage.BlogPage}
-                                                                       AddPost={props.AddPost}
-                                                                       inputtext={props.state.MyPage.inputtext}
-                                                                       ChangeNewPostText={props.ChangeNewPostText}/>}/>
-              <Route path='/Dialogs/' render={() => <Dialogs
-                  Friends_messagesData={props.state.DialogsPage.Friends_messagesData}
-                  MessageData={props.state.DialogsPage.MessageData}
-                  />}/>
+              <Route exact path='/' render={() => <MyPage store={props.store} dispatch={props.dispatch}/>}/>
+              <Route exact path='/Hotel_Number/' render={() =>  <MyPage store={props.store} dispatch={props.dispatch}/>}/>
+              <Route path='/Dialogs/' render={() => <Dialogs store={props.store} dispatch={props.dispatch}/> }/>
               <Route path='/Settings' component={Settings}/>
               <Route path='/Logout' component={Logout}/>
               <Route  exact path='/Photo' component={Photo}/>
               <Route  exact path='/Music' component={Music}/>
               <Route  exact path='/Video' component={Video}/>
-              <FriendsBar FriendsBarData={props.state.FriendsBarPage}/>
+              <FriendsBar FriendsBarData={props.store._state.FriendsBarPage}/>
 
 
           </div>

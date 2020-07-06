@@ -1,17 +1,14 @@
 import React from 'react';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import {AddPost, ChangeNewPostText, state, stateType, subscribe} from "./Redux/State";
 import ReactDOM from "react-dom";
 import App from "./App";
+import {store} from "./Redux/Store";
 
 
 export let rerenderTree = () => {
-    ReactDOM.render(<App state={state}
-                         AddPost={AddPost}
-                         ChangeNewPostText={ChangeNewPostText}
-    />,  document.getElementById('root'));
+    ReactDOM.render(<App store={store} dispatch={store.dispatch.bind(store)}/>,  document.getElementById('root'));
 }
-subscribe(rerenderTree)
+store.subscribe(rerenderTree)
 rerenderTree()
 serviceWorker.unregister();

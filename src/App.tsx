@@ -4,12 +4,11 @@ import Header from "./Components/Header/Header";
 import Body from "./Components/Body/Body";
 import Footer from "./Components/Footer/Footer";
 import {BrowserRouter} from "react-router-dom";
-import {ChangeNewPostText, stateType} from "./Redux/State";
+import {ActionType, StoreType} from "./Redux/Store";
 
 type AppType = {
-    state:stateType,
-    AddPost: () => void,
-    ChangeNewPostText:(newPostText:string) => void
+    store: StoreType
+    dispatch:(action: ActionType)=> void
  }
 
 
@@ -18,9 +17,7 @@ function App(props:AppType) {
       <BrowserRouter>
       <div className={style.main}>
           <Header />
-          <Body state={props.state}
-                AddPost={props.AddPost}
-                ChangeNewPostText={props.ChangeNewPostText}/>
+          <Body store={props.store} dispatch={props.dispatch}/>
           <Footer/>
 
 
