@@ -21,8 +21,7 @@
 
 }
 
-.photo {
-    margin-top: 20px;
+.photo img{
     margin-left: 50px;
     height: 150px;
     width: 150px;
@@ -30,9 +29,10 @@
     border: 1px solid;
 }
 
+
 .status {
+    margin-top: -20px;
     margin-left: 50px;
-    margin-top: 20px;
     justify-content: center;
     align-items: center;
 }

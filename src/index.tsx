@@ -3,12 +3,13 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import ReactDOM from "react-dom";
 import App from "./App";
-import {store} from "./Redux/Store";
+import store from "./Redux/Redux-Store";
+import {Provider} from "react-redux";
 
 
-export let rerenderTree = () => {
-    ReactDOM.render(<App store={store} dispatch={store.dispatch.bind(store)}/>,  document.getElementById('root'));
-}
-store.subscribe(rerenderTree)
-rerenderTree()
+ReactDOM.render(
+    <Provider store={store}>
+        <App state={store.getState()} dispatch={store.dispatch.bind(store)}/>
+    </Provider>
+    , document.getElementById('root'));
 serviceWorker.unregister();

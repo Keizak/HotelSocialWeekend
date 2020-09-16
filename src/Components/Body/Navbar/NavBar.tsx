@@ -2,13 +2,15 @@ import React from 'react';
 import style from './css.module.css';
 import {NavLink} from "react-router-dom";
 
-export type NavBarType = {}
+export type NavBarType = {
+    UserId:number
+}
 
 
 function NavBar(props: NavBarType) {
     return (
         <div className={style.NavBar}>
-            <div className={style.NavBar_item}><NavLink to={"/Hotel_Number/"} activeClassName={style.Active}>
+            <div className={style.NavBar_item}><NavLink to={`/Profile/${props.UserId}`} activeClassName={style.Active}>
                <img src={"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTs7GXweu42OgXuVVNVdQSx5F8SETyBfajPAw&usqp=CAU"}/>
                 <br/>My room</NavLink></div>
             <div className={style.NavBar_item}><NavLink to={'/News/'} activeClassName={style.Active}>

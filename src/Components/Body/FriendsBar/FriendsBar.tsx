@@ -4,6 +4,7 @@ import FriendsBarItem, {FriendsBarItemType} from "./FriendsbBarItem/FriendsBarIt
 
 type FriendsBarType = {
     FriendsBarData: Array<FriendsBarItemType>
+
 }
 
 
