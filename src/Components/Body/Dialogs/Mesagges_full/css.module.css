@@ -1,0 +1,10 @@
+.Container{
+    display: flex;
+    justify-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+.button{
+    display: flex;
+    justify-content: flex-end;
+}

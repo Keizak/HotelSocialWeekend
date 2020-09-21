@@ -1,0 +1,38 @@
+.Container{
+    display: flex;
+    align-items: center;
+    width: 80%;
+    height: 150px;
+}
+.ava_button
+{
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 150px;
+}
+.ava_button img
+{
+    height: 100px;
+    width: 100px;
+}
+.content
+{
+    height: 75px;
+    display: flex;
+    flex-direction: row;
+    border: 1px black solid;
+}
+.location{
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width:500px
+}
