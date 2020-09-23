@@ -12,6 +12,10 @@ export const AuthApi = {
         const promise = instance.get(`/auth/me` );
         return promise;
     },
+    goLoginUser(props:LoginDataType){
+        const promise = instance.post(`/auth/login`,{email:props.email,password:props.password,rememberMe:props.rememberMe,captcha:props.captcha});
+        return promise;
+    }
 }
 
 export const UsersApi = {
@@ -49,4 +53,11 @@ export type getUsersPropsType = {
     page?: number
     term?:string
     friend?: boolean
+}
+export type LoginDataType= {
+    email: string
+    password: string
+    rememberMe?:boolean
+    captcha?: boolean
+
 }

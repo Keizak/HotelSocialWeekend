@@ -33,7 +33,6 @@ function Body(props:BodyType) {
             <Route  exact path='/Photo' component={Photo}/>
             <Route  exact path='/Music' component={Music}/>
             <Route  exact path='/Video' component={Video}/>
-        <Route  exact path='/Login' component={Login}/>
             <FriendsBar FriendsBarData={props.state.FriendsBarPage}/>
         </div>)
 

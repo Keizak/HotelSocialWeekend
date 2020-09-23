@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {AuthApi, UsersApi} from "../Api/Api";
+import {AuthApi, LoginDataType, UsersApi} from "../Api/Api";
 import {setFollowingStatusAC, unfollowAC, UsersActionsType} from "./UsersPage-Reducer";
 
 export type AuthUserType = {
@@ -46,6 +46,18 @@ type ActionType = setUserDataActionType | setLoginActionType
 // Thunks
 export const authMeTC = () => (dispatch:Dispatch<ActionType>) => {
     AuthApi.getAuthMe().then(
+        response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setUserDataAC(response.data.data))
+                dispatch(setLoginAC(true))
+            }
+            else {
+                dispatch(setLoginAC(false))
+            }
+        })
+}
+export const goLoginTC = (data:LoginDataType) => (dispatch:Dispatch<ActionType>) => {
+    AuthApi.goLoginUser(data).then(
         response => {
             if (response.data.resultCode === 0) {
                 dispatch(setUserDataAC(response.data.data))
