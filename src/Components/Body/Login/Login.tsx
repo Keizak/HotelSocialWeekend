@@ -1,11 +1,13 @@
 import React from 'react';
 import style from './css.module.css';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form'
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../Redux/Redux-Store";
 import {Redirect} from "react-router-dom";
 import {goLoginTC} from "../../../Redux/Auth-reduser";
 import {LoginDataType} from "../../../Api/Api";
+import {maxLengthCreator, requiredField} from "../../../Utils/Validators/Validators";
+import {Input, TextArea} from "../../../CommonComponents/FormControl/FormsControl";
 
 type LoginFormOwnProps = {
     captchaUrl?: string | null
@@ -13,26 +15,35 @@ type LoginFormOwnProps = {
 export type LoginFormValuesType = {
     captcha: string
     rememberMe: boolean
-    password: string
-    email: string
+    Password: string
+    Email: string
 }
-
+const maxlengthEmail = maxLengthCreator(30)
 let LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnProps> & LoginFormOwnProps>
     = (props:any) => {
+    debugger
     return (
         <div className={style.main}>
             Login
             <form className={style.form} onSubmit={props.handleSubmit}>
                 <div className={style.inputText}>
-                    <Field  placeholder="Login" name="Login" component="input" type="text" />
+                    <Field  placeholder="Email"
+                            name="Email"
+                            component={Input}
+                            type="text"
+                            validate={[requiredField,maxlengthEmail]}/>
                 </div>
                 <div className={style.inputText}>
-                    <Field placeholder="Password" name="Password" component="input" type="password" />
+                    <Field placeholder="Password"
+                           name="Password"
+                           component={Input}
+                           type="password"
+                           validate={[requiredField,maxlengthEmail]}/>
                 </div>
                 <div>
                     <Field  component="input" name="rememberMe" type="checkbox" /> RememberMe
-                    {/*<label htmlFor={"remember"}>remember me</label>*/}
                 </div>
+                {props.error ? <div className={style.commonError}>{props.error}</div> : null}
                 <div className={style.buttons}>
                     <div className={style.buttonRegister}>
                         <button>Sigh Up</button>
@@ -58,12 +69,13 @@ type MapDispatchPropsType = {
 
 
 const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
+    const userId = useSelector<AppRootStateType, number>(state => state.auth.userData.id)
     const onSubmit = (formData: LoginFormValuesType) => {
-        props.goLoginTC({email: formData.email, password:formData.password});
+        props.goLoginTC({email: formData.Email, password:formData.Password});
     }
 
     if (props.isAuth) {
-        return <Redirect to={"/"}/>
+        return <Redirect to={`/Profile/${userId}`}/>
     }
 
     return <div>

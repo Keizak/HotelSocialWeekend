@@ -1,7 +1,7 @@
 import {PostType} from "../Components/Body/MyPage/Posts/Post/Blog";
 import {UserType} from "./UsersPage-Reducer";
 import {Dispatch} from "redux";
-import {ProfileApi, UsersApi} from "../Api/Api";
+import {ProfileApi} from "../Api/Api";
 
 
 export type ProfileType =
@@ -40,37 +40,29 @@ let InizialitionState: any =
             {id: "4", content: "4 пост"}
         ],
         EditPostText: "",
-        profile:null,
+        profile: null,
         Loading: false,
-        ProfileStatus:""
+        ProfileStatus: ""
     }
 
 export type stateMyPageType =
     {
         posts: Array<PostType>
-        EditPostText: string
         profile: ProfileType | null
-        Loading:boolean
-        ProfileStatus:string
+        Loading: boolean
+        ProfileStatus: string
     }
 
 function MyPageReduser(state: stateMyPageType = InizialitionState, action: ActionType) {
     switch (action.type) {
         case "ADD-POST": {
+            debugger
             let copyState = {
                 ...state,
                 posts: [...state.posts]
             }
-            if (action.content === copyState.EditPostText) {
-                let newpost = {id: "5", content: copyState.EditPostText}
-                copyState.posts.push(newpost)
-                copyState.EditPostText = ""
-            }
-            return copyState
-        }
-        case "NEW-POST-TEXT": {
-            let copyState = {...state}
-            copyState.EditPostText = action.newPostText
+            let newpost = {id: "5", content: action.content}
+            copyState.posts.push(newpost)
             return copyState
         }
         case "SET-PROFILE": {
@@ -88,7 +80,7 @@ function MyPageReduser(state: stateMyPageType = InizialitionState, action: Actio
             return copyState
         }
         case "SET-PROFILE-STATUS": {
-            let copyState = {...state,ProfileStatus:action.value}
+            let copyState = {...state, ProfileStatus: action.value}
             return copyState
         }
 
@@ -96,9 +88,10 @@ function MyPageReduser(state: stateMyPageType = InizialitionState, action: Actio
             return state
     }
 }
+
 // Thunks
 
-export const getProfileTC = (id: number) => (dispatch:Dispatch<ActionType>) => {
+export const getProfileTC = (id: number) => (dispatch: Dispatch<ActionType>) => {
     dispatch(SetLoadingAC(true))
     ProfileApi.getProfile(id).then(
         response => {
@@ -106,7 +99,7 @@ export const getProfileTC = (id: number) => (dispatch:Dispatch<ActionType>) => {
             dispatch(SetLoadingAC(false))
         })
 }
-export const getProfileStatusTC = (id: number) => (dispatch:Dispatch<ActionType>) => {
+export const getProfileStatusTC = (id: number) => (dispatch: Dispatch<ActionType>) => {
     dispatch(SetLoadingAC(true))
     ProfileApi.getProfileStatus(id).then(
         response => {
@@ -114,7 +107,7 @@ export const getProfileStatusTC = (id: number) => (dispatch:Dispatch<ActionType>
             dispatch(SetLoadingAC(false))
         })
 }
-export const updateProfileStatusTC = (value: string) => (dispatch:Dispatch<ActionType>) => {
+export const updateProfileStatusTC = (value: string) => (dispatch: Dispatch<ActionType>) => {
     dispatch(SetLoadingAC(true))
     ProfileApi.updateProfileStatus(value).then(
         response => {
@@ -126,11 +119,11 @@ export const updateProfileStatusTC = (value: string) => (dispatch:Dispatch<Actio
 
 // Action creators
 
-export const AddPostAC = (content: string) => ({type: "ADD-POST", content} as const )
-export const SetProfileAC = (profile:UserType) => ({type: "SET-PROFILE", profile}  as const )
-export const UpdatePostAC = (newPostText: string) => ({type: "NEW-POST-TEXT", newPostText}  as const )
-export const SetLoadingAC = (Loading: boolean) => ({type: "SET-LOADING", Loading}  as const )
-export const SetProfileStatusAC = (value:string) => ({type: "SET-PROFILE-STATUS", value}  as const )
+export const AddPostAC = (content: string) => ({type: "ADD-POST", content} as const)
+export const SetProfileAC = (profile: UserType) => ({type: "SET-PROFILE", profile} as const)
+export const UpdatePostAC = (newPostText: string) => ({type: "NEW-POST-TEXT", newPostText} as const)
+export const SetLoadingAC = (Loading: boolean) => ({type: "SET-LOADING", Loading} as const)
+export const SetProfileStatusAC = (value: string) => ({type: "SET-PROFILE-STATUS", value} as const)
 
 // Type of AC
 

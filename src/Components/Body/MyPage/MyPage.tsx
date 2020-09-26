@@ -2,9 +2,12 @@ import React from 'react';
 import style from './css.module.css';
 import Posts from "./Posts/Blog";
 import {MapDispatchPropsTypeMyPage, MapStatePropsTypeMyPage} from "./MyPageContainer";
-import {SetProfileStatusAC} from "../../../Redux/MyPage-Reducer";
+import {Field,InjectedFormProps, reduxForm} from "redux-form";
+import {requiredField} from "../../../Utils/Validators/Validators";
 
-
+export type LoginFormValuesType = {
+  text:string
+}
 type functionsOfClassType = {
     activateEditMode: () => void
     deactivateEditMode: () => void
@@ -14,11 +17,11 @@ type functionsOfClassType = {
 }
 export type MyPagePropsType = MapStatePropsTypeMyPage & MapDispatchPropsTypeMyPage & functionsOfClassType
 
-function MyPage(props: MyPagePropsType) {
+const MyPage =(props:MyPagePropsType) => {
     let newpostElement: any = React.createRef();
 
-    function SentPost() {
-        props.AddPostAC(newpostElement.current.value)
+    function SentPost(value:any) {
+        props.AddPostAC(value.content)
     }
 
     function ChangePost() {
@@ -39,7 +42,6 @@ function MyPage(props: MyPagePropsType) {
         props.onStatusChange(e.currentTarget.value)
     }
     return (
-        // {props.MyPage.profile?.aboutMe}
         <div className={style.main_container}>
             <div className={style.workspace}>
                 <div className={style.profile}>
@@ -50,11 +52,8 @@ function MyPage(props: MyPagePropsType) {
                         : <span onDoubleClick={props.activateEditMode} className={style.status}>{props.MyPage.ProfileStatus}</span> }
                 </div>
                 <div className={style.edit_window}>
-                    <input ref={newpostElement}
-                           value={props.MyPage.EditPostText}
-                           onChange={ChangePost}
-                    />
-                    <button onClick={SentPost}>Add Post</button>
+                    <MessageReduxForm onSubmit={SentPost}/>
+
                 </div>
             </div>
 
@@ -68,6 +67,19 @@ function MyPage(props: MyPagePropsType) {
     )
 
 }
+const MessageForm = (props:any) => {
+return <form onSubmit={props.handleSubmit}>
+    <div>
+        <Field  placeholder="Input your messages"
+                name="content"
+                component="textarea"
+                type="text"
+                validate={[requiredField]}/>
+        <button >Add Post</button>
+    </div>
+</form>
 
+}
+const MessageReduxForm = reduxForm({form: 'PostArea'})(MessageForm)
 export default MyPage;
 

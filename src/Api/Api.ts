@@ -15,6 +15,10 @@ export const AuthApi = {
     goLoginUser(props:LoginDataType){
         const promise = instance.post(`/auth/login`,{email:props.email,password:props.password,rememberMe:props.rememberMe,captcha:props.captcha});
         return promise;
+    },
+    goLogoutUser(){
+        const promise = instance.delete(`/auth/login`);
+        return promise;
     }
 }
 

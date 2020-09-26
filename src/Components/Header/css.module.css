@@ -9,6 +9,14 @@
 .loginButton{
     margin-left: 50%;
 }
-
-
+.HeaderData{
+    margin-left: 100px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.exit{
+    height:30px;
+    margin-left: 100px;
+}
 
